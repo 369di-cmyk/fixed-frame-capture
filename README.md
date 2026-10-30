@@ -6,7 +6,36 @@ Windows 固定区域截图工具：设置一次区域，之后通过快捷键或
 
 **Version / 版本：3.4** · **UI / 界面：核心操作中英双语 / bilingual core controls**
 
+## 界面预览 / Interface preview
+
+**设置一次，随时截图。 / Set the region once, capture anytime.**
+
+![主界面 · 海盐蓝 / Main window · Ocean](theme-ocean.jpg)
+
+- **左上 / Top left**：截图区域、坐标与尺寸 / Capture region, coordinates and dimensions.
+- **右上 / Top right**：定时间隔和开始/暂停 / Capture interval and start/pause.
+- **中部 / Middle**：保存位置、文件名与全局快捷键 / Save folder, filenames and global hotkeys.
+- **底部 / Bottom**：去重、声音、缩略图和 PDF 入口 / Duplicate skipping, sound, thumbnail and PDF tools.
+
+### 四套主题 / Four themes
+
+在右上角 **主题 / Theme** 中选择，主题会自动记住。点击图片可查看大图。
+
+Choose **Theme** in the top-right corner; your choice is remembered. Click an image to view it full-size.
+
+| 海盐蓝 / Ocean | 薰衣草 / Lavender |
+|:---:|:---:|
+| ![海盐蓝 / Ocean](theme-ocean.jpg) | ![薰衣草 / Lavender](theme-lavender.jpg) |
+| **蜜桃橙 / Peach** | **经典黑白 / Classic** |
+| ![蜜桃橙 / Peach](theme-peach.jpg) | ![经典黑白 / Classic](theme-classic.jpg) |
+
+*以上为 v3.4 实际窗口截图，使用演示配置。毛玻璃效果可能因 Windows 版本和桌面背景而异。*
+
+*Actual v3.4 window screenshots with demonstration settings. Acrylic appearance may vary with Windows version and desktop background.*
+
 ## 下载与运行 / Download & run
+
+**[下载 Windows 压缩包 / Download Windows ZIP](https://github.com/369di-cmyk/fixed-frame-capture/releases/download/v3.4/FixedFrameCapture-v3.4-Windows.zip)** · [v3.4 Release](https://github.com/369di-cmyk/fixed-frame-capture/releases/tag/v3.4)
 
 Download [FixedFrameCapture.exe](https://github.com/369di-cmyk/fixed-frame-capture/raw/refs/heads/main/FixedFrameCapture.exe) using the download button on its file page. Run it on Windows; no installer is required. Exit any older version before starting this one.
 
@@ -38,6 +67,8 @@ Requires Windows with .NET Framework 4.5 or later and WPF. Tested locally on Win
 3. **命名与编号 / File naming**：设置命名方式、下一编号和补零位数。
 4. **全局快捷键 / Hotkeys**：设置单次截图以及自动截图开始/暂停快捷键，再点 **保存设置 / Save settings**。
 5. 点击 **立即截图 / Capture**，或开启 **自动截图 / Auto capture**。关闭主窗口会继续在托盘运行；选择 **退出 / Exit** 才会退出程序。
+
+**English steps**
 
 1. Select a capture region, or enter its position and dimensions.
 2. Choose a destination folder and naming pattern.
