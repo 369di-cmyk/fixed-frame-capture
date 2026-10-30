@@ -4,13 +4,22 @@ A lightweight Windows screenshot utility with remembered capture regions, global
 
 Windows 固定区域截图工具：设置一次区域，之后通过快捷键或定时自动截图，自动保存并连续编号。
 
-**Version / 版本：3.4** · **UI / 界面：核心操作中英双语 / bilingual core controls**
+**Version / 版本：3.5** · **UI / 界面：核心操作中英双语 / bilingual core controls**
+
+## v3.5 更新 / What changed
+
+- 保存设置与状态固定在顶部，滚动时仍然可见；修改后明确显示“尚未保存”。
+- 窗口按钮、全局截图快捷键、自动截图快捷键与托盘启动都会先保存并校验当前设置，避免误用旧区域、旧目录或旧编号。
+- 设置无效或无法保存时会提示错误并阻止截图；修改快捷键后请先点击顶部“保存设置”，新快捷键才会注册。
+- The Save button and save status stay pinned at the top. Edits show an explicit unsaved indicator.
+- Capture buttons, global capture hotkeys, auto-capture hotkeys and tray start actions save and validate the current settings before starting.
+- Invalid settings or save failures block capture with an error. Click Save after changing hotkeys to register the new combination.
 
 ## 界面预览 / Interface preview
 
 **设置一次，随时截图。 / Set the region once, capture anytime.**
 
-![主界面 · 海盐蓝 / Main window · Ocean](theme-ocean.jpg)
+![主界面 · 海盐蓝 / Main window · Ocean](theme-ocean.png)
 
 - **左上 / Top left**：截图区域、坐标与尺寸 / Capture region, coordinates and dimensions.
 - **右上 / Top right**：定时间隔和开始/暂停 / Capture interval and start/pause.
@@ -25,17 +34,17 @@ Choose **Theme** in the top-right corner; your choice is remembered. Click an im
 
 | 海盐蓝 / Ocean | 薰衣草 / Lavender |
 |:---:|:---:|
-| ![海盐蓝 / Ocean](theme-ocean.jpg) | ![薰衣草 / Lavender](theme-lavender.jpg) |
+| ![海盐蓝 / Ocean](theme-ocean.png) | ![薰衣草 / Lavender](theme-lavender.png) |
 | **蜜桃橙 / Peach** | **经典黑白 / Classic** |
-| ![蜜桃橙 / Peach](theme-peach.jpg) | ![经典黑白 / Classic](theme-classic.jpg) |
+| ![蜜桃橙 / Peach](theme-peach.png) | ![经典黑白 / Classic](theme-classic.png) |
 
-*以上为 v3.4 实际窗口截图，使用演示配置。毛玻璃效果可能因 Windows 版本和桌面背景而异。*
+*以上为 v3.5 应用界面的高清渲染，使用演示配置。毛玻璃效果可能因 Windows 版本和桌面背景而异。*
 
-*Actual v3.4 window screenshots with demonstration settings. Acrylic appearance may vary with Windows version and desktop background.*
+*High-resolution v3.5 UI renders with demonstration settings. Acrylic appearance may vary with Windows version and desktop background.*
 
 ## 下载与运行 / Download & run
 
-**[下载 Windows 压缩包 / Download Windows ZIP](https://github.com/369di-cmyk/fixed-frame-capture/releases/download/v3.4/FixedFrameCapture-v3.4-Windows.zip)** · [v3.4 Release](https://github.com/369di-cmyk/fixed-frame-capture/releases/tag/v3.4)
+**[下载 Windows 压缩包 / Download Windows ZIP](https://github.com/369di-cmyk/fixed-frame-capture/releases/download/v3.5/FixedFrameCapture-v3.5-Windows.zip)** · [v3.5 Release](https://github.com/369di-cmyk/fixed-frame-capture/releases/tag/v3.5)
 
 Download [FixedFrameCapture.exe](https://github.com/369di-cmyk/fixed-frame-capture/raw/refs/heads/main/FixedFrameCapture.exe) using the download button on its file page. Run it on Windows; no installer is required. Exit any older version before starting this one.
 
@@ -65,7 +74,7 @@ Requires Windows with .NET Framework 4.5 or later and WPF. Tested locally on Win
 1. **重新框选 / Select area**：拖动选择截图区域，或输入 X、Y、宽度和高度。
 2. **保存位置 / Save folder**：选择截图保存目录。
 3. **命名与编号 / File naming**：设置命名方式、下一编号和补零位数。
-4. **全局快捷键 / Hotkeys**：设置单次截图以及自动截图开始/暂停快捷键，再点 **保存设置 / Save settings**。
+4. **全局快捷键 / Hotkeys**：设置单次截图以及自动截图开始/暂停快捷键，再点顶部 **保存设置 / Save settings**（新快捷键需保存后生效）。
 5. 点击 **立即截图 / Capture**，或开启 **自动截图 / Auto capture**。关闭主窗口会继续在托盘运行；选择 **退出 / Exit** 才会退出程序。
 
 **English steps**
@@ -125,7 +134,6 @@ The script uses the Windows .NET Framework C# compiler and produces `FixedFrameC
 
 ## 验证范围 / Validation status
 
-Compilation, startup, core filename/persistence/image tests, duplicate fingerprint tests and selected theme layouts have been checked locally. Full end-to-end interaction coverage is incomplete: browser/desktop automation could not activate the application for some hotkey, preview, PDF and theme-dropdown checks. Please report reproducible issues with Windows version and steps.
+v3.5 passed a clean build, existing core self-tests and an isolated regression run that captured actual screen pixels. The regression invokes the shortcut/tray/button handlers to check unsaved folder/region/naming changes, sequence persistence, pause/unlock, invalid interval validation and all four theme selections. Physical keyboard delivery, multi-monitor/DPI combinations and every PDF/preview interaction are not exhaustively covered.
 
-已完成编译、启动、命名与配置/图片核心测试、重复画面指纹测试及部分主题布局检查。端到端交互验证尚不完整：桌面自动化无法激活窗口，部分快捷键、缩略图、PDF、主题下拉操作尚未完成自动实测。反馈问题时请附 Windows 版本和复现步骤。
-
+v3.5 已通过编译、原有核心自测与独立配置下的实际屏幕截图回归。回归调用快捷键、托盘和窗口按钮处理逻辑，检查未保存的目录/区域/编号、编号持久化、暂停后解锁、无效间隔校验和四种主题切换。物理按键送达、多屏/缩放组合与所有 PDF/预览交互尚未穷尽验证。
