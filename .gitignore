@@ -1,0 +1,7 @@
+settings.json
+settings.json.bak
+*.tmp
+*.log
+.vs/
+bin/
+obj/

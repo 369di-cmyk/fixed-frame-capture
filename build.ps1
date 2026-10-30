@@ -1,0 +1,7 @@
+param([string]$OutputPath = (Join-Path $PSScriptRoot 'FixedFrameCapture.exe'))
+$ErrorActionPreference = 'Stop'
+$compiler = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
+$wpf = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\WPF'
+& $compiler /nologo /target:winexe /optimize+ /platform:anycpu /codepage:65001 "/win32manifest:$PSScriptRoot\app.manifest" "/win32icon:$PSScriptRoot\app.ico" "/out:$OutputPath" /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.Runtime.Serialization.dll /reference:System.Xaml.dll "/reference:$wpf\PresentationCore.dll" "/reference:$wpf\PresentationFramework.dll" "/reference:$wpf\WindowsBase.dll" "/resource:$PSScriptRoot\View.xaml,View.xaml" "/resource:$PSScriptRoot\PdfView.xaml,PdfView.xaml" "$PSScriptRoot\FixedCapture.cs" "$PSScriptRoot\Icons.cs" "$PSScriptRoot\GlassWindow.cs" "$PSScriptRoot\PdfExporter.cs" "$PSScriptRoot\PdfWindow.cs" "$PSScriptRoot\CaptureFeedback.cs" "$PSScriptRoot\ThemePalette.cs"
+if ($LASTEXITCODE -ne 0) { throw 'Build failed' }
+
