@@ -15,6 +15,21 @@ namespace FixedCapture {
     g.SmoothingMode=SmoothingMode.AntiAlias;g.ScaleTransform(pixels/24f,pixels/24f);
     using(var pen=new Pen(color,1.8f)){pen.StartCap=LineCap.Round;pen.EndCap=LineCap.Round;pen.LineJoin=LineJoin.Round;
      switch(name){
+      case "pen":g.DrawLines(pen,new PointF[]{new PointF(4,20),new PointF(6,13),new PointF(16,3),new PointF(21,8),new PointF(11,18),new PointF(4,20)});g.DrawLine(pen,14,5,19,10);break;
+      case "highlight":g.DrawPolygon(pen,new PointF[]{new PointF(5,13),new PointF(13,3),new PointF(20,9),new PointF(12,19)});g.DrawLine(pen,3,21,19,21);break;
+      case "eraser":g.DrawPolygon(pen,new PointF[]{new PointF(3,14),new PointF(13,3),new PointF(21,10),new PointF(12,20),new PointF(8,20)});g.DrawLine(pen,7,10,16,17);g.DrawLine(pen,8,21,22,21);break;
+      case "mosaic":for(int row=0;row<3;row++)for(int col=0;col<3;col++){if((row+col)%2==0)using(var br=new SolidBrush(color))g.FillRectangle(br,3+col*6,3+row*6,5,5);else g.DrawRectangle(pen,3+col*6,3+row*6,5,5);}break;
+      case "arrow":g.DrawLine(pen,4,20,20,4);g.DrawLines(pen,new PointF[]{new PointF(10,4),new PointF(20,4),new PointF(20,14)});break;
+      case "text":g.DrawLine(pen,4,4,20,4);g.DrawLine(pen,12,4,12,21);g.DrawLine(pen,8,21,16,21);break;
+      case "ellipse":g.DrawEllipse(pen,3,5,18,14);break;
+      case "rectangle":g.DrawRectangle(pen,3,5,18,14);break;
+      case "undo":g.DrawArc(pen,6,7,15,14,190,210);g.DrawLines(pen,new PointF[]{new PointF(3,6),new PointF(6,13),new PointF(13,10)});break;
+      case "redo":g.DrawArc(pen,3,7,15,14,140,-210);g.DrawLines(pen,new PointF[]{new PointF(21,6),new PointF(18,13),new PointF(11,10)});break;
+      case "clipboard":g.DrawRectangle(pen,5,5,15,17);g.DrawRectangle(pen,9,2,7,5);break;
+      case "pin":g.DrawPolygon(pen,new PointF[]{new PointF(9,3),new PointF(20,3),new PointF(17,7),new PointF(17,12),new PointF(20,15),new PointF(8,15),new PointF(11,12),new PointF(11,7)});g.DrawLine(pen,14,15,8,22);break;
+      case "ocr":g.DrawRectangle(pen,2,3,20,18);g.DrawLine(pen,6,7,18,7);g.DrawLine(pen,6,12,18,12);g.DrawLine(pen,6,17,13,17);break;
+      case "trash":g.DrawLine(pen,3,5,21,5);g.DrawRectangle(pen,6,5,12,17);g.DrawLine(pen,9,2,15,2);g.DrawLine(pen,10,9,10,18);g.DrawLine(pen,14,9,14,18);break;
+      case "clear":case "cancel":g.DrawLine(pen,5,5,19,19);g.DrawLine(pen,5,19,19,5);break;
       case "pdf":g.DrawLines(pen,new PointF[]{new PointF(5,2),new PointF(14,2),new PointF(20,8),new PointF(20,22),new PointF(5,22),new PointF(5,2)});g.DrawLines(pen,new PointF[]{new PointF(14,2),new PointF(14,8),new PointF(20,8)});g.DrawLine(pen,9,13,16,13);g.DrawLine(pen,9,17,16,17);break;
       case "region":g.DrawLines(pen,new PointF[]{new PointF(3,8),new PointF(3,3),new PointF(8,3)});g.DrawLines(pen,new PointF[]{new PointF(16,3),new PointF(21,3),new PointF(21,8)});g.DrawLines(pen,new PointF[]{new PointF(21,16),new PointF(21,21),new PointF(16,21)});g.DrawLines(pen,new PointF[]{new PointF(8,21),new PointF(3,21),new PointF(3,16)});g.DrawRectangle(pen,7,7,10,10);break;
       case "move":g.DrawLine(pen,12,3,12,21);g.DrawLine(pen,3,12,21,12);g.DrawLines(pen,new PointF[]{new PointF(8,7),new PointF(12,3),new PointF(16,7)});g.DrawLines(pen,new PointF[]{new PointF(8,17),new PointF(12,21),new PointF(16,17)});g.DrawLines(pen,new PointF[]{new PointF(7,8),new PointF(3,12),new PointF(7,16)});g.DrawLines(pen,new PointF[]{new PointF(17,8),new PointF(21,12),new PointF(17,16)});break;

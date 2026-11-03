@@ -18,7 +18,7 @@ namespace FixedCapture {
   void Click(string name,Action action){C<Button>(name).Click+=(o,e)=>action();}
   public PdfWindow(string folder,ResourceDictionary styles){
    initial=folder;Title="图片合成 PDF · 定框截图";Width=1100;Height=740;MinWidth=1050;MinHeight=600;MaxHeight=SystemParameters.WorkArea.Height-24;MaxWidth=SystemParameters.WorkArea.Width-24;WindowStartupLocation=WindowStartupLocation.CenterOwner;
-   FontFamily=new FontFamily("Microsoft YaHei UI");FontSize=13;Resources=styles;SetResourceReference(BackgroundProperty,"Surface");
+   FontFamily=new FontFamily("Microsoft YaHei UI");FontSize=13;Resources=styles;SetResourceReference(BackgroundProperty,"WorkspaceSurface");
    using(var stream=System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("PdfView.xaml"))view=(FrameworkElement)System.Windows.Markup.XamlReader.Load(stream);Content=view;
    Decorate("Add","capture","添加图片\nAdd images");Decorate("CurrentFolder","folder","截图目录\nCapture folder");Decorate("ChooseFolder","folder","选择文件夹\nChoose folder");Decorate("Sort","tag","按编号排序\nSort");Decorate("Remove","exit","移除\nRemove");Decorate("Export","pdf","导出 PDF\nExport PDF",true);Decorate("OpenPdf","pdf","打开 PDF\nOpen PDF");
    C<ListBox>("Files").ItemsSource=items;C<ListBox>("Files").SelectionChanged+=(o,e)=>Preview();

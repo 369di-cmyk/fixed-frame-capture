@@ -1,0 +1,146 @@
+﻿定框截图 v3.7 / Validation report
+日期 / Date: 2026-11-03
+文件版本 / File version: 3.7.0.0
+
+最终构建成功，无编译警告。103 项独立配置回归全部通过。
+Release build completed without warnings. All 103 isolated regression checks passed.
+
+本次重点 / Focused coverage:
+- 三种首页尺寸 1100×710、1000×640、940×580 下，所有功能控件均在可视范围内。
+- 八种标注工具滚轮增减、Shift 加速、边界限制、精细滚轮累计、工具独立记忆大小。
+- 钉图滚轮按比例缩放、反向还原、关闭后不再参与截图隐藏/恢复。
+- 真实外部窗口边界识别、忽略透明辅助浮层、单击不立即确认、边角调整后得到正确区域。
+- 手动拖选保留，取消不返回区域；六套主题渲染和设置保存。
+- 原有标注、撤销重做、橡皮擦、马赛克、文件编号、剪贴板、自动截图和中英文 OCR 回归。
+
+实际鼠标与快捷键检查 / Interactive checks:
+- Ctrl+Alt+Shift+F7（测试配置）打开窗口选框。
+- 单击测试窗口选中 813×528 px，拖动右下角后为 843×558 px，Enter 后进入同尺寸标注界面。
+- 画笔滚轮由 4→5 px，橡皮擦由 24→25 px。
+- 点击图钉后图片置顶；滚轮放大，双击图片后钉图窗口消失，编号仍为 70。
+- 本机 150% 桌面缩放下检查。截图和设置均使用独立测试目录。
+
+The window-selection, editor wheel controls, pin resizing and double-click dismissal were also exercised with real mouse/keyboard input at 150% desktop scaling.
+Tests used separate settings and output directories. Production settings were not modified.
+
+页面示例图为新版实际界面的 2× 渲染，不含实测桌面截图或个人配置。
+Preview images are 2× renders with demonstration content, not captured personal desktop images.
+
+限制 / Limits:
+窗口吸附选择可见应用的边界，不还原被遮挡的窗口内容；不捕捉最小化窗口。
+多屏混合 DPI、所有辅助浮层、不同机器 OCR 准确率和各类粘贴目标未穷尽测试。
+简体中文、英语和混排识别通过；本机未安装繁体 OCR，未进行繁体准确率实测。
+Window snapping selects bounds of visible applications; it does not restore occluded content or minimized windows.
+Mixed-DPI multi-monitor setups, every overlay type, OCR accuracy on other machines and all paste destinations are not exhaustively tested.
+Traditional Chinese OCR was not tested because its language pack is not installed here.
+
+基础自测 / Core:
+PASS: exact duplicate, single pixel change, dimensions, fingerprint stability, PCM WAV, legacy defaults, feedback persistence; start 5, increment 6, collision skip 7, date format, padding, custom template, persistence, atomic replace, invalid names, PNG dimensions.
+
+PDF 自测 / PDF:
+PASS: natural sort 5,6,10; original-ratio and A4 export; cancellation preserves existing PDF; corrupt-image failure leaves no partial PDF.
+
+逐项回归 / Regression:
+PASS pen changes image
+PASS undo restores original pixels
+PASS redo restores exact marks
+PASS eraser restores original screenshot, no white paint
+PASS eraser undo
+PASS new stroke discards redo branch
+PASS clear annotations preserves screenshot
+PASS clear can be undone
+PASS render Pen
+PASS original pixel dimensions Pen
+PASS render Highlighter
+PASS original pixel dimensions Highlighter
+PASS render Arrow
+PASS original pixel dimensions Arrow
+PASS render Rectangle
+PASS original pixel dimensions Rectangle
+PASS render Ellipse
+PASS original pixel dimensions Ellipse
+PASS render Text
+PASS original pixel dimensions Text
+PASS mosaic replaces pixels with opaque flat blocks
+PASS mosaic stays inside selection
+PASS mosaic undo
+PASS legacy settings migrate new options and hotkeys
+PASS new options and hotkeys persist
+PASS direct single capture uses unsaved current settings
+PASS automatic capture bypasses editor
+PASS pause prevents further files
+PASS editor defers saving until Save
+PASS editor Save advances sequence exactly once
+PASS cancel screenshot consumes no filename or sequence
+PASS pins hide before subsequent capture
+PASS pins restore after capture
+PASS four distinct global hotkeys register
+PASS duplicate hotkey rejected without replacing working hotkeys
+PASS reserve test shortcut
+PASS OS hotkey conflict rolls back all four registrations
+PASS copy image preserves pixel dimensions on clipboard
+PASS clipboard bitmap keeps correct colors
+PASS clipboard text preserves Chinese and newlines
+PASS pin survives closing modal screenshot editor
+PASS 4K pen preview completes four renders in 348 ms
+PASS homepage uses one dashboard without a page scroll container
+PASS all homepage functions visible at 1100x710
+PASS all homepage functions visible at 1000x640
+PASS all homepage functions visible at 940x580
+PASS wheel increases Pen size
+PASS wheel decreases Pen size
+PASS Shift wheel accelerates Pen size
+PASS wheel increases Highlighter size
+PASS wheel decreases Highlighter size
+PASS Shift wheel accelerates Highlighter size
+PASS wheel increases Eraser size
+PASS wheel decreases Eraser size
+PASS Shift wheel accelerates Eraser size
+PASS wheel increases Mosaic size
+PASS wheel decreases Mosaic size
+PASS Shift wheel accelerates Mosaic size
+PASS wheel increases Arrow size
+PASS wheel decreases Arrow size
+PASS Shift wheel accelerates Arrow size
+PASS wheel increases Text size
+PASS wheel decreases Text size
+PASS Shift wheel accelerates Text size
+PASS wheel increases Ellipse size
+PASS wheel decreases Ellipse size
+PASS Shift wheel accelerates Ellipse size
+PASS wheel increases Rectangle size
+PASS wheel decreases Rectangle size
+PASS Shift wheel accelerates Rectangle size
+PASS each tool remembers its size
+PASS wheel clamps at maximum
+PASS wheel clamps at minimum
+PASS partial wheel delta accumulates
+PASS high resolution wheel reaches one step
+PASS pin wheel scales proportionally [before=325.333333333333x201.333333333333, after=358x221.333333333333]
+PASS pin reverse wheel restores size
+PASS double-click close action removes pin from capture restoration list
+PASS selection movement clamps to desktop
+PASS corner drag resizes selected window
+PASS resize cannot invert selection
+PASS window detection finds a real external application window
+PASS click-through overlay is excluded from window detection
+PASS single click selects window without capturing yet
+PASS window snap matches visible frame bounds
+PASS confirm exports manually adjusted window rectangle
+PASS manual drag still creates adjustable region
+PASS cancel selection returns no capture region
+PASS theme render Ocean
+PASS theme persistence Ocean
+PASS theme render Lavender
+PASS theme persistence Lavender
+PASS theme render Peach
+PASS theme persistence Peach
+PASS theme render Classic
+PASS theme persistence Classic
+PASS theme render Starry
+PASS theme persistence Starry
+PASS theme render Crystal
+PASS theme persistence Crystal
+PASS offline English OCR recognizes HELLO
+PASS offline Chinese OCR recognizes Chinese sample
+PASS Chinese OCR also reads English in mixed sample

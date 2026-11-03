@@ -26,11 +26,17 @@ namespace FixedCapture {
   [DataMember] public int IntervalSeconds=10;
   [DataMember] public int AutoModifiers=3;
   [DataMember] public int AutoKey=(int)Keys.F9;
+  [DataMember] public int SelectModifiers=3;
+  [DataMember] public int SelectKey=(int)Keys.A;
+  [DataMember] public int PositionModifiers=3;
+  [DataMember] public int PositionKey=(int)Keys.D;
+  [DataMember] public bool CaptureAfterSelection=false;
+  [DataMember] public bool EditAfterCapture=true;
   [DataMember] public string Theme="Ocean";
   [DataMember] public bool SkipDuplicates=true;
   [DataMember] public bool CaptureSound=true;
   [DataMember] public bool CaptureNotice=true;
-  [OnDeserializing] void Defaults(StreamingContext context){Theme="Ocean";IntervalSeconds=10;AutoModifiers=3;AutoKey=(int)Keys.F9;SkipDuplicates=true;CaptureSound=true;CaptureNotice=true;}
+  [OnDeserializing] void Defaults(StreamingContext context){Theme="Ocean";IntervalSeconds=10;AutoModifiers=3;AutoKey=(int)Keys.F9;SelectModifiers=3;SelectKey=(int)Keys.A;PositionModifiers=3;PositionKey=(int)Keys.D;EditAfterCapture=true;SkipDuplicates=true;CaptureSound=true;CaptureNotice=true;}
   public Rectangle Region { get { return new Rectangle(X,Y,Width,Height); } }
  }
  static class Store {
@@ -78,41 +84,6 @@ namespace FixedCapture {
   [DllImport("user32.dll")] public static extern bool SetProcessDPIAware();
   [DllImport("user32.dll",CharSet=CharSet.Unicode)] public static extern int RegisterWindowMessage(string name);
   [DllImport("user32.dll")] public static extern bool PostMessage(IntPtr hwnd,int msg,IntPtr wParam,IntPtr lParam);
- }
- class RegionPicker:Form {
-  Bitmap desktop; Rectangle screen; Rectangle selection; Point anchor; bool dragging; bool fixedSize; Size size;
-  public Rectangle Selected;
-  public RegionPicker(bool fixedMode,Size requested) {
-   Text="定框截图 - 选择区域";fixedSize=fixedMode; size=requested; screen=SystemInformation.VirtualScreen;
-   desktop=new Bitmap(screen.Width,screen.Height);
-   using(Graphics g=Graphics.FromImage(desktop)) g.CopyFromScreen(screen.Location,Point.Empty,screen.Size);
-   FormBorderStyle=FormBorderStyle.None; StartPosition=FormStartPosition.Manual; Bounds=screen;
-   TopMost=true; ShowInTaskbar=true; DoubleBuffered=true; KeyPreview=true; Cursor=Cursors.Cross;
-   KeyDown+=(o,e)=>{if(e.KeyCode==Keys.Escape){DialogResult=DialogResult.Cancel;Close();}};
-   MouseDown+=(o,e)=>{if(e.Button==MouseButtons.Right){DialogResult=DialogResult.Cancel;Close();return;} if(e.Button!=MouseButtons.Left)return; anchor=e.Location;dragging=true;Capture=true;UpdateSelection(e.Location);};
-   MouseMove+=(o,e)=>{if(fixedSize||dragging)UpdateSelection(e.Location);};
-   MouseUp+=(o,e)=>{if(e.Button!=MouseButtons.Left||!dragging)return;UpdateSelection(e.Location);dragging=false;Capture=false;if(selection.Width>0&&selection.Height>0){Selected=new Rectangle(selection.X+screen.X,selection.Y+screen.Y,selection.Width,selection.Height);DialogResult=DialogResult.OK;Close();}};
-  }
-  void UpdateSelection(Point p) {
-   p.X=Math.Max(0,Math.Min(screen.Width,p.X));p.Y=Math.Max(0,Math.Min(screen.Height,p.Y));
-   if(fixedSize) selection=new Rectangle(Math.Max(0,Math.Min(screen.Width-size.Width,p.X)),Math.Max(0,Math.Min(screen.Height-size.Height,p.Y)),size.Width,size.Height);
-   else selection=Rectangle.FromLTRB(Math.Min(anchor.X,p.X),Math.Min(anchor.Y,p.Y),Math.Max(anchor.X,p.X),Math.Max(anchor.Y,p.Y));
-   Invalidate();
-  }
-  protected override void OnPaint(PaintEventArgs e) {
-   e.Graphics.DrawImageUnscaled(desktop,0,0);
-   using(var dim=new SolidBrush(Color.FromArgb(135,0,0,0))) e.Graphics.FillRectangle(dim,ClientRectangle);
-   if(selection.Width>0&&selection.Height>0) {
-    e.Graphics.DrawImage(desktop,selection,selection,GraphicsUnit.Pixel);
-    using(var pen=new Pen(Color.FromArgb(235,235,240),2))e.Graphics.DrawRectangle(pen,selection.X,selection.Y,selection.Width-1,selection.Height-1);
-   }
-   string text=(fixedSize?"移动鼠标定位，单击确认 / Move, click to confirm":"拖动框选 / Drag to select")+"  ·  Esc / Right-click: Cancel\n"+selection.Width+" × "+selection.Height+" px";
-   Point mouse=PointToClient(Cursor.Position);
-   Rectangle hint=new Rectangle(Math.Max(0,Math.Min(ClientSize.Width-520,mouse.X+18)),Math.Max(0,Math.Min(ClientSize.Height-78,mouse.Y+22)),520,72);
-   using(var b=new SolidBrush(Color.FromArgb(235,24,32,47)))e.Graphics.FillRectangle(b,hint);
-   using(var f=new Font("Microsoft YaHei UI",12))e.Graphics.DrawString(text,f,Brushes.White,hint.X+12,hint.Y+10);
-  }
-  protected override void Dispose(bool disposing){if(disposing&&desktop!=null)desktop.Dispose();base.Dispose(disposing);}
  }
  static class Program {
   public static int ActivateMessage;

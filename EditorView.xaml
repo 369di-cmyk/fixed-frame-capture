@@ -1,0 +1,21 @@
+<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Margin="16">
+ <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+ <DockPanel Margin="4,0,4,12"><TextBlock DockPanel.Dock="Right" x:Name="ImageSize" Foreground="#666675"/><StackPanel><TextBlock Text="标注截图 / Annotate" FontSize="21" FontWeight="SemiBold"/><TextBlock Text="编辑后保存、复制或钉在屏幕上 · Edit, then save, copy or pin" Margin="0,4,0,0" FontSize="12" Foreground="#666675"/></StackPanel></DockPanel>
+ <Border Grid.Row="1" Background="#D8DFEA" CornerRadius="14" BorderBrush="#C7CEDB" BorderThickness="1" Padding="8">
+  <ScrollViewer x:Name="Viewport" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+   <Grid x:Name="ImageHost" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center"><Image x:Name="Picture" Stretch="Fill" Cursor="Cross" SnapsToDevicePixels="True"/></Grid>
+  </ScrollViewer>
+ </Border>
+ <Border Grid.Row="2" CornerRadius="18" Background="#EFFFFFFF" Padding="12" Margin="0,12,0,0"><StackPanel>
+  <WrapPanel x:Name="Tools"/>
+  <WrapPanel Margin="0,9,0,10" VerticalAlignment="Center">
+   <TextBlock x:Name="SizeLabel" Text="粗细 / Size" Margin="4,0,7,0"/><Slider x:Name="ToolSize" Minimum="1" Maximum="80" Value="4" Width="115" VerticalAlignment="Center" IsSnapToTickEnabled="True" TickFrequency="1"/><TextBlock x:Name="SizeValue" Width="38" Margin="7,0,8,0"/>
+   <StackPanel x:Name="Colors" Orientation="Horizontal" VerticalAlignment="Center"/><Button x:Name="CustomColor" Content="颜色 / Color" Height="30" Margin="4,0,14,0"/>
+   <TextBlock Text="字体 / Font" Margin="0,0,6,0"/><ComboBox x:Name="FontChoice" Width="152" Height="32" Margin="0,0,14,0"><ComboBoxItem Content="Microsoft YaHei UI"/><ComboBoxItem Content="Segoe UI"/><ComboBoxItem Content="SimSun"/><ComboBoxItem Content="Arial"/></ComboBox>
+   <TextBlock Text="缩放 / Zoom" Margin="0,0,6,0"/><ComboBox x:Name="Zoom" Width="112" Height="32"><ComboBoxItem Content="适应 / Fit"/><ComboBoxItem Content="50%"/><ComboBoxItem Content="100%"/><ComboBoxItem Content="150%"/><ComboBoxItem Content="200%"/></ComboBox>
+  </WrapPanel>
+  <Border Height="1" Background="#16000000" Margin="0,0,0,10"/>
+  <WrapPanel x:Name="Actions"/>
+  <TextBlock x:Name="EditorStatus" Text="拖动鼠标标注；文字工具点击图片输入 · Ctrl+Z 撤销 / Ctrl+Y 重做" Foreground="#666675" FontSize="12" Margin="4,10,4,0" TextWrapping="Wrap"/>
+ </StackPanel></Border>
+</Grid>
