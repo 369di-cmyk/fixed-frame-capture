@@ -148,14 +148,15 @@ Settings use the path above. Images go to the selected folder. The package conta
 
 ## 编译和测试 / Build and tests
 
-在 Windows PowerShell 中运行 `build.ps1`，默认输出到包目录的 `定框截图.exe`。使用系统自带 .NET Framework 编译器、WPF 和 WinForms，无需 NuGet。OCR 脚本嵌入可执行文件。
+在 Windows PowerShell 中运行 `build.ps1`，仓库源码默认输出 `FixedFrameCapture.exe`（发布 ZIP 内为 `定框截图.exe`）。使用系统自带 .NET Framework 编译器、WPF 和 WinForms，无需 NuGet。OCR 脚本嵌入可执行文件。
 
-Run `build.ps1` on Windows to build `定框截图.exe`. It uses the built-in .NET Framework compiler, WPF and WinForms, without NuGet dependencies. The OCR worker is embedded in the executable.
+Run `build.ps1` in the repository on Windows to build `FixedFrameCapture.exe` (the release ZIP uses `定框截图.exe`). It uses the built-in .NET Framework compiler, WPF and WinForms, without NuGet dependencies. The OCR worker is embedded in the executable.
 
 发布包中的 `tests\run.ps1` 编译并运行隔离回归；测试会抓取桌面左上角的小区域、临时打开界面并覆盖剪贴板为测试内容。不会使用正式设置文件；结果保存在传入的测试目录。OCR 测试要求已安装简体中文和英语。
 
-发布包中的 `tests\run.ps1` builds and runs the isolated regression. It captures a small top-left desktop region, opens test windows and replaces clipboard contents with test data. Production settings are not used. OCR tests require English and Simplified Chinese support.
+The release package includes `tests\run.ps1`, which builds and runs the isolated regression. It captures a small top-left desktop region, opens test windows and replaces clipboard contents with test data. Production settings are not used. OCR tests require English and Simplified Chinese support.
 
 已完成的验证见 `验证记录.txt`。多屏混合缩放组合、不同设备上的 OCR 识别率和所有粘贴目标程序尚未穷尽测试。
 
 See `验证记录.txt` for validation evidence. Mixed-DPI multi-monitor setups, OCR accuracy on other devices, and all possible paste destinations have not been exhaustively tested.
+
